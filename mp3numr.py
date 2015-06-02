@@ -10,6 +10,7 @@ not present yet).
 Run program inside folder containing .mp3 files you want to be
 shuffled and numbered.
 """
+<<<<<<< HEAD
 import os
 import random
 
@@ -53,3 +54,5 @@ for i in xrange(len(mp3_files)):
 	old_name = mp3_files[i]
 	new_name = numbers_for_files[i]+'_'+mp3_files[i]
 	os.rename(old_name, new_name)
+=======
+>>>>>>> 5e586886be738f232ead32399e71d59214571486

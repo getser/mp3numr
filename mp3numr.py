@@ -6,7 +6,7 @@ from 001_ to XXX_ at the beginning of file name.
 If file has some digits at the begining - they will be removed.
 
 Run program inside folder that contains .mp3 files you want to
-shuffle and enumerate.
+shuffle and to number.
 """
 import os
 import random
@@ -22,14 +22,12 @@ def crt_str_num(number, lenght):
 	else:
 		next_number = '0'+ str(number)
 		return crt_str_num(next_number, lenght)
-
 print crt_str_num(3, 5)
 
 curr_path = os.path.abspath(os.curdir)
-text = 'If you want me to shuffle your .mp3 files \n in your %s \
-type "yes":\n\n\n' %str(curr_path)
-to_shaffle = raw_input(text)
-curr_path = os.path.abspath(os.curdir)
+text = 'If you want me to shuffle your .mp3 files \nin your %s \
+type "yes":\n\n>>>' %str(curr_path)
+to_shuffle = raw_input(text)
 all_files = os.listdir(curr_path)
 print all_files
 mp3_files = []
@@ -38,10 +36,18 @@ for i in xrange(len(all_files)):
 		mp3_files.append(all_files[i])
 print mp3_files
 num_mp3_files = len(mp3_files)
-
 num_digits = len(str(num_mp3_files))
 
 numbers_for_files = []
+for num in xrange(num_mp3_files):
+	numbers_for_files.append(crt_str_num(num + 1, num_digits))
+print numbers_for_files
 
-if to_shaffle == 'yes': 
-	pass
+if to_shuffle == 'yes': 
+	random.shuffle(numbers_for_files)
+print numbers_for_files
+
+for i in xrange(len(mp3_files)):
+	old_name = mp3_files[i]
+	new_name = numbers_for_files[i]+'_'+mp3_files[i]
+	os.rename(old_name, new_name)

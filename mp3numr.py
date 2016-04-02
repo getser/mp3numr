@@ -16,6 +16,10 @@ import random
 import string
 # import unidecode
 
+
+SYMBOLS_TO_CLEAN = [' ', '_', '-', '.']
+
+
 transliter = {
             'а':'a', 'б':'b', 'в':'v', 'г':'g', 'д': 'd', \
             'е': 'ye', 'ё':'yo', 'ж':'zh', 'з':'z', 'и':'i', \
@@ -43,33 +47,19 @@ def create_string_num(number, lenght):
     else:
         next_number = '0' + str(number)
         return create_string_num(next_number, lenght)
-# print crt_str_num(3, 5)
-
-# def get_new_name(filename, prefix):
-#    if filename[-4:] == '.mp3': name = filename[:-4]
-#    else: name = filename
-#
-#    if len(name) > 0:
-#        if name[0].isdigit() or name[0] in [' ', '_', '-', '.']:
-#            name = name[1:]
-#            return get_new_name(name, prefix)
-#        else:
-#            return prefix +'. '+ name + '.mp3'
-#    else:
-#        return prefix + '.mp3'
 
 
 def get_new_name_wo_ext(filename):
     """
     Returns name of file without extension, cleans it from numbers and
-    some other simbols at the beginning.
+    simbols from SYMBOLS_TO_CLEAN at the beginning.
     """
     if filename[- len_file_extension:] == file_extension:
         name = filename[:-len_file_extension]
     else:
         name = filename
     if len(name) > 0:
-        if name[0].isdigit() or name[0] in [' ', '_', '-', '.',]:
+        if name[0].isdigit() or name[0] in SYMBOLS_TO_CLEAN:
             name = name[1:]
             return get_new_name_wo_ext(name)
         else:
@@ -78,7 +68,7 @@ def get_new_name_wo_ext(filename):
         return ' '
 
 
-def transliterate(list_names):
+def transliterate(list_names):  # !!! not working yet
     res_names_list = []
     for name in list_names:
         res_name = ''
@@ -101,15 +91,22 @@ Please input extension of files you would like me to work with\n \
 (Type .mp3 , for an instance.) :\n\n>>>' % str(curr_path)
 file_extension = raw_input(text_1)
 len_file_extension = len(file_extension)
+
 text_2 = '\n\nTo transliterate filenames of your %s files in your\n %s \n \
-type "yes", otherwise just hit "Enter":\n\n>>>' % (file_extension, str(curr_path))
+type "yes", otherwise just hit "Enter":\n\n>>>\
+' % (file_extension, str(curr_path))
 to_trliter = raw_input(text_2)
+
 text_3 = '\n\nTo number your %s files in your\n %s \n \
-type "yes", otherwise just hit "Enter":\n\n>>>' % (file_extension, str(curr_path))
+type "yes", otherwise just hit "Enter":\n\n>>>\
+' % (file_extension, str(curr_path))
 to_number = raw_input(text_3)
+
 text_4 = '\n\nTo shuffle your %s files in your\n %s \n \
-type "yes", otherwise just hit "Enter":\n\n>>>' % (file_extension, str(curr_path))
+type "yes", otherwise just hit "Enter":\n\n>>>\
+' % (file_extension, str(curr_path))
 to_shuffle = raw_input(text_4)
+
 all_files = os.listdir(curr_path)
 # print all_files
 working_files = []
@@ -151,7 +148,7 @@ if to_number == 'yes':
 
 for i in xrange(num_working_files):
     old_name = working_files[i]
-    print old_name
+    # print old_name
     new_name = new_names_wo_ext[i] + file_extension
     try:
         os.rename(old_name, new_name)

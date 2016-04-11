@@ -1,13 +1,13 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 """
-Randomly shuffles all .mp3 files in home folder,
+Randomly shuffles user defined files in home folder,
 then enumerates them by inserting the text
 from '001. ' to 'XXX. ' at the beginning of file name.
 
-If file has some digits, '.', '-', '_' or ' '
-at the begining - they will be removed.
+If filename has some digits, '.', '-', '_' or ' '
+at the begining - that digits and symbols will be removed.
 
-Run program inside folder containing .mp3 files you want to be
+Run program inside folder containing files you want to be
 shuffled and numbered.
 """
 
@@ -21,18 +21,18 @@ SYMBOLS_TO_CLEAN = [' ', '_', '-', '.']
 
 
 transliter = {
-            'а':'a', 'б':'b', 'в':'v', 'г':'g', 'д': 'd', \
-            'е': 'ye', 'ё':'yo', 'ж':'zh', 'з':'z', 'и':'i', \
-            'й':'y', 'к':'k', 'л':'l', 'м':'m', 'н':'n', 'о':'o', \
-            'п':'p', 'р':'r', 'с':'s', 'т':'t', 'у':'u', 'ф':'f', \
-            'х':'h', 'ц':'ts', 'ч':'ch', 'ш':'sh', 'щ':'sch', 'ъ':'', \
-            'ы':'y', 'ь':'', 'э':'e', 'ю':'yu', 'я':'ya', 'А':'A', \
-            'Б':'B', 'В':'V', 'Г':'G', 'Д':'D', 'Е':'E', 'Ё':'YO', \
-            'Ж':'ZH', 'З':'Z', 'И':'I', 'Й':'Y', 'К':'K', 'Л':'L', \
-            'М':'M', 'Н':'N', 'О':'O', 'П':'P', 'Р':'R', 'С':'S', \
-            'Т':'T', 'У':'U', 'Ф':'F', 'Х':'H', 'Ц':'TS', 'Ч':'CH', \
-            'Ш':'SH', 'Щ':'SCH', 'Ъ':'', 'Ы':'Y', 'Ь':'', 'Э':'E', \
-            'Ю':'yu', 'Я':'YA'
+            'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
+            'е': 'ye', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i',
+            'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
+            'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f',
+            'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '',
+            'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya', 'А': 'A',
+            'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'YO',
+            'Ж': 'ZH', 'З': 'Z', 'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L',
+            'М': 'M', 'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S',
+            'Т': 'T', 'У': 'U', 'Ф': 'F', 'Х': 'H', 'Ц': 'TS', 'Ч': 'CH',
+            'Ш': 'SH', 'Щ': 'SCH', 'Ъ': '', 'Ы': 'Y', 'Ь': '', 'Э': 'E',
+            'Ю': 'yu', 'Я': 'YA'
             }
 
 
@@ -92,32 +92,40 @@ Please input extension of files you would like me to work with\n \
 file_extension = raw_input(text_1)
 len_file_extension = len(file_extension)
 
-text_2 = '\n\nTo transliterate filenames of your %s files in your\n %s \n \
-type "yes", otherwise just hit "Enter":\n\n>>>\
-' % (file_extension, str(curr_path))
-to_trliter = raw_input(text_2)
+# temporary, while transliteration doesn't work
+to_trliter = None
+# text_2 = '\n\nTo transliterate filenames of your %s files in your\n %s \n \
+# type "yes", otherwise just hit "Enter":\n\n>>>\
+# ' % (file_extension, str(curr_path))
+# to_trliter = raw_input(text_2)
+
 
 text_3 = '\n\nTo number your %s files in your\n %s \n \
 type "yes", otherwise just hit "Enter":\n\n>>>\
 ' % (file_extension, str(curr_path))
 to_number = raw_input(text_3)
 
-text_4 = '\n\nTo shuffle your %s files in your\n %s \n \
-type "yes", otherwise just hit "Enter":\n\n>>>\
-' % (file_extension, str(curr_path))
-to_shuffle = raw_input(text_4)
+to_shuffle = None
+
+
 
 all_files = os.listdir(curr_path)
 # print all_files
 working_files = []
 for i in xrange(len(all_files)):
-    if file_extension in all_files[i]:
+    if all_files[i].endswith(file_extension):
         working_files.append(all_files[i])
 # print working_files
 num_working_files = len(working_files)
 num_digits = len(str(num_working_files))
 
 if to_number == 'yes':
+
+    text_4 = '\n\nTo shuffle your %s files in your\n %s \n \
+    type "yes", otherwise just hit "Enter":\n\n>>>\
+    ' % (file_extension, str(curr_path))
+    to_shuffle = raw_input(text_4)
+
     numbers_for_files = []
     for num in xrange(num_working_files):
         numbers_for_files.append(create_string_num(num + 1, num_digits))

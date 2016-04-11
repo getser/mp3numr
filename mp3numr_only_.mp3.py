@@ -1,10 +1,11 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 
 """
 Shuffles all .mp3 files in home folder,
 then enumerates them by inserting the text
 from 001_ to XXX_ at the beginning of file name.
-If file has some digits at the begining - they will be removed.
+If filename has some digits, '.', '-', '_' or ' '
+at the begining - that digits and symbols will be removed.
 Run program inside folder containing .mp3 files you want to be
 shuffled and numbered.
 """
@@ -71,9 +72,11 @@ all_files = os.listdir(curr_path)
 working_files = []
 
 for i in xrange(len(all_files)):
-    if ('.mp3' in all_files[i] or
-        '.Mp3' in all_files[i] or
-        '.MP3' in all_files[i]):
+    if (
+            all_files[i].endswith('.mp3') or
+            all_files[i].endswith('.Mp3') or
+            all_files[i].endswith('.MP3')
+            ):
         working_files.append(all_files[i])
 # print working_files
 num_working_files = len(working_files)

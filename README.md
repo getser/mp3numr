@@ -3,8 +3,8 @@
 Program to shuffle and number .mp3 files.
 
 """
-Cleans names of all .mp3 files in home folder: If file has some digits, '.', '-', '_' or ' ' at
-the begining - they will be removed.
+Cleans names of all .mp3 files in home folder: If filename has some digits, '.', '-', '_' or ' '
+at the begining - that digits and symbols will be removed.
 
 Numbers all .mp3 files in home folder (if user decides), 
 by inserting the text from '001. ' to 'XXX. '

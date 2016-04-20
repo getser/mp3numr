@@ -21,6 +21,6 @@ shuffled and numbered.
 
 # mp3numr.py
 
-Program to rename in translater, shuffle and number files 
+Program to transliterate filenames, shuffle and number files 
 with user-defined extension (.mp3, .avi, etc).
 !!! Doesnt work correctly now !!!
